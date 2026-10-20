@@ -1,0 +1,50 @@
+{
+  "name": "photo-seal",
+  "ref": "assets/photo.jpg",
+  "theme": "山亭晚照",
+  "theme_seal": "",
+  "shape": "round",
+  "seal_type": "zhuwen",
+  "border": "thin",
+  "aspect": "1:1",
+  "size": "2048x2048",
+  "subject": {
+    "keep": [
+      "半山腰那座四角小亭的轮廓",
+      "前景斜出的一棵松树",
+      "远处山脊的折线走向"
+    ],
+    "drop": [
+      "天空的云层层次",
+      "地面的碎石、草叶与土路",
+      "光线、阴影与整体色调",
+      "画面里多余的人物与杂物"
+    ],
+    "style": "亭子取四根柱、一个翘檐顶，屋面只留一条斜线；松树取主干加两三层分枝，针叶缩成短促的点簇；山脊拉成一条有节奏的折线，与松枝形成一密一疏的对照。三者用粗细不同的块面区分主次，亭子最细、山脊最重"
+  },
+  "layout": {
+    "pattern_ratio": 0.62,
+    "text_position": "right_column",
+    "text_columns": 1
+  },
+  "wear": {
+    "chip": true,
+    "bleed": true,
+    "pressure": "uneven",
+    "abrasion": false
+  },
+  "ink": {
+    "color": "朱砂红",
+    "hex": "#B23A2E"
+  },
+  "paper": {
+    "color": "宣纸",
+    "hex": "#F2E8D5"
+  },
+  "forbidden": [
+    "照片里的具体建筑细节",
+    "砖瓦纹理",
+    "树的写实枝叶",
+    "透视关系"
+  ]
+}

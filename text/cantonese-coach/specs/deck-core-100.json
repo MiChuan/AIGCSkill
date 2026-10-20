@@ -1,0 +1,808 @@
+{
+  "deck": "core-100",
+  "title": "粵語核心 100 詞／短語（旅行．會話共用）",
+  "expect": 100,
+  "desc": "三層分法：第 1 層是「冇佢活唔到」，第 2 層是「旅行現場一定會撞到」，第 3 層是「傾偈講感受時先會用到」。每層內按使用頻率排序，不按字母、不按主題。",
+  "items": [
+    {
+      "hz": "你好",
+      "jp": "nei5 hou2",
+      "en": "hello",
+      "tier": 1,
+      "ctx": "打招呼",
+      "note": "正式度中等；朋友之間更常講「喂」"
+    },
+    {
+      "hz": "早晨",
+      "jp": "zou2 san4",
+      "en": "good morning",
+      "tier": 1,
+      "ctx": "早上見人",
+      "note": "香港早上比「你好」常用十倍"
+    },
+    {
+      "hz": "唔該",
+      "jp": "m4 goi1",
+      "en": "please / excuse me / thanks (for service)",
+      "tier": 1,
+      "ctx": "叫人做嘢、落單、借過",
+      "note": "服務性多謝一律用呢個，唔用「多謝」"
+    },
+    {
+      "hz": "多謝",
+      "jp": "do1 ze6",
+      "en": "thank you (for a gift / compliment)",
+      "tier": 1,
+      "ctx": "收禮、被讚、對方幫大忙",
+      "note": "同「唔該」唔可以互換，係最常見的第一個錯"
+    },
+    {
+      "hz": "對唔住",
+      "jp": "deoi3 m4 zyu6",
+      "en": "sorry (I did something wrong)",
+      "tier": 1,
+      "ctx": "道歉",
+      "note": "撞到人、遲到、做錯事"
+    },
+    {
+      "hz": "唔好意思",
+      "jp": "m4 hou2 ji3 si1",
+      "en": "excuse me / sorry to bother you",
+      "tier": 1,
+      "ctx": "輕微打擾",
+      "note": "比「對唔住」輕，唔一定係你做錯"
+    },
+    {
+      "hz": "係",
+      "jp": "hai6",
+      "en": "yes / to be",
+      "tier": 1,
+      "ctx": "回答、判斷句",
+      "note": "「係」唔係「喺」；「我係香港人」用係，「我喺香港」用喺"
+    },
+    {
+      "hz": "唔係",
+      "jp": "m4 hai6",
+      "en": "no / is not",
+      "tier": 1,
+      "ctx": "否定",
+      "note": "語調要平，唔好升高，升咗會變成問句"
+    },
+    {
+      "hz": "唔",
+      "jp": "m4",
+      "en": "not",
+      "tier": 1,
+      "ctx": "否定副詞",
+      "note": "成音節鼻音，嘴唇要合實，唔可以讀成「嗯」"
+    },
+    {
+      "hz": "好",
+      "jp": "hou2",
+      "en": "good / very / OK",
+      "tier": 1,
+      "ctx": "同意、程度",
+      "note": "「好」+ 形容詞 = 很（好食、好遠）"
+    },
+    {
+      "hz": "我",
+      "jp": "ngo5",
+      "en": "I / me",
+      "tier": 1,
+      "ctx": "代詞",
+      "note": "有 ng- 聲母；讀成「o5」係懶音，唔要學"
+    },
+    {
+      "hz": "你",
+      "jp": "nei5",
+      "en": "you",
+      "tier": 1,
+      "ctx": "代詞",
+      "note": "標準係 n-；讀「lei5」係懶音"
+    },
+    {
+      "hz": "佢",
+      "jp": "keoi5",
+      "en": "he / she / it",
+      "tier": 1,
+      "ctx": "代詞",
+      "note": "一個字通殺三個性別，唔分他／她"
+    },
+    {
+      "hz": "我哋",
+      "jp": "ngo5 dei6",
+      "en": "we / us",
+      "tier": 1,
+      "ctx": "代詞",
+      "note": "複數用「哋」，唔係「們」"
+    },
+    {
+      "hz": "呢個",
+      "jp": "ni1 go3",
+      "en": "this one",
+      "tier": 1,
+      "ctx": "指物",
+      "note": "量詞唔可以省：唔講「呢書」"
+    },
+    {
+      "hz": "嗰個",
+      "jp": "go2 go3",
+      "en": "that one",
+      "tier": 1,
+      "ctx": "指物",
+      "note": "「嗰」係高升調，同「個」唔同音"
+    },
+    {
+      "hz": "咩",
+      "jp": "me1",
+      "en": "what",
+      "tier": 1,
+      "ctx": "疑問",
+      "note": "「咩事？」比「乜嘢事」口語；正式少用"
+    },
+    {
+      "hz": "邊度",
+      "jp": "bin1 dou6",
+      "en": "where",
+      "tier": 1,
+      "ctx": "問位置",
+      "note": "問「去邊」講「去邊度」，唔講「去哪裡」"
+    },
+    {
+      "hz": "點解",
+      "jp": "dim2 gaai2",
+      "en": "why",
+      "tier": 1,
+      "ctx": "問原因",
+      "note": "直譯係「點樣解釋」"
+    },
+    {
+      "hz": "幾多",
+      "jp": "gei2 do1",
+      "en": "how many / how much",
+      "tier": 1,
+      "ctx": "問數量",
+      "note": "「幾多人」對，唔講「幾人」"
+    },
+    {
+      "hz": "有",
+      "jp": "jau5",
+      "en": "have / there is",
+      "tier": 1,
+      "ctx": "存在、擁有",
+      "note": "問句係「有冇」"
+    },
+    {
+      "hz": "冇",
+      "jp": "mou5",
+      "en": "not have / there is none",
+      "tier": 1,
+      "ctx": "否定擁有",
+      "note": "「冇」唔係「唔有」"
+    },
+    {
+      "hz": "要",
+      "jp": "jiu3",
+      "en": "want / need",
+      "tier": 1,
+      "ctx": "要求",
+      "note": "「我要呢個」係點餐最實用一句"
+    },
+    {
+      "hz": "想",
+      "jp": "soeng2",
+      "en": "want to / would like to",
+      "tier": 1,
+      "ctx": "意願",
+      "note": "讀 soeng2，唔係 soeng1；後面直接跟動詞"
+    },
+    {
+      "hz": "去",
+      "jp": "heoi3",
+      "en": "go",
+      "tier": 1,
+      "ctx": "移動",
+      "note": "eoi 係最難的韻母之一，嘴唇要先圓後扁"
+    },
+    {
+      "hz": "食",
+      "jp": "sik6",
+      "en": "eat",
+      "tier": 1,
+      "ctx": "食嘢",
+      "note": "粵語講「食」唔講「吃」；-k 尾唔好加「呃」音"
+    },
+    {
+      "hz": "飲",
+      "jp": "jam2",
+      "en": "drink",
+      "tier": 1,
+      "ctx": "飲嘢",
+      "note": "「飲茶」= 上茶樓食點心，唔係單飲茶"
+    },
+    {
+      "hz": "買",
+      "jp": "maai5",
+      "en": "buy",
+      "tier": 1,
+      "ctx": "購物",
+      "note": "低升調；「賣」係 maai6，差一個調就賣咗自己"
+    },
+    {
+      "hz": "睇",
+      "jp": "tai2",
+      "en": "look / watch / read",
+      "tier": 1,
+      "ctx": "視覺",
+      "note": "睇戲、睇書、睇醫生都用呢個字"
+    },
+    {
+      "hz": "講",
+      "jp": "gong2",
+      "en": "say / speak",
+      "tier": 1,
+      "ctx": "說話",
+      "note": "「講嘢」= 說話；「講廣東話」"
+    },
+    {
+      "hz": "洗手間",
+      "jp": "sai2 sau2 gaan1",
+      "en": "toilet",
+      "tier": 2,
+      "ctx": "問設施",
+      "note": "問法：「洗手間喺邊度？」"
+    },
+    {
+      "hz": "喺邊度",
+      "jp": "hai2 bin1 dou6",
+      "en": "where is it",
+      "tier": 2,
+      "ctx": "問位置",
+      "note": "「喺」= 在；用「係」即刻變咗「是不是邊度」"
+    },
+    {
+      "hz": "直行",
+      "jp": "zik6 haang4",
+      "en": "go straight",
+      "tier": 2,
+      "ctx": "問路",
+      "note": "行 = 走；粵語「走」係跑"
+    },
+    {
+      "hz": "轉左",
+      "jp": "zyun3 zo2",
+      "en": "turn left",
+      "tier": 2,
+      "ctx": "問路",
+      "note": "「左」(zo2，左邊) 同完成體「咗」(zo2) 同音，靠位置分辨，唔好聽成「轉咗左」"
+    },
+    {
+      "hz": "轉右",
+      "jp": "zyun3 jau6",
+      "en": "turn right",
+      "tier": 2,
+      "ctx": "問路",
+      "note": "左／右調唔同：zo2 高升，jau6 低平"
+    },
+    {
+      "hz": "前面",
+      "jp": "cin4 min6",
+      "en": "ahead / in front",
+      "tier": 2,
+      "ctx": "方向",
+      "note": "「前面個路口」"
+    },
+    {
+      "hz": "附近",
+      "jp": "fu6 gan6",
+      "en": "nearby",
+      "tier": 2,
+      "ctx": "方向",
+      "note": "兩個字都係低調，容易讀成同一個音"
+    },
+    {
+      "hz": "地鐵站",
+      "jp": "dei6 tit3 zaam6",
+      "en": "MTR station",
+      "tier": 2,
+      "ctx": "交通",
+      "note": "香港叫「地鐵」，廣州叫「地鐵」但口語多講「地鐵站」"
+    },
+    {
+      "hz": "巴士站",
+      "jp": "baa1 si2 zaam6",
+      "en": "bus stop",
+      "tier": 2,
+      "ctx": "交通",
+      "note": "英文借詞，重音在第一節"
+    },
+    {
+      "hz": "的士",
+      "jp": "dik1 si2",
+      "en": "taxi",
+      "tier": 2,
+      "ctx": "交通",
+      "note": "唔係「出租車」"
+    },
+    {
+      "hz": "機場",
+      "jp": "gei1 coeng4",
+      "en": "airport",
+      "tier": 2,
+      "ctx": "交通",
+      "note": "香港口語一律講「機場」，唔講「飛機場」"
+    },
+    {
+      "hz": "酒店",
+      "jp": "zau2 dim3",
+      "en": "hotel",
+      "tier": 2,
+      "ctx": "住宿",
+      "note": "住宿叫「酒店」；食飯的酒樓叫「酒樓」或「茶樓」，兩者唔同"
+    },
+    {
+      "hz": "訂房",
+      "jp": "deng6 fong2",
+      "en": "book a room",
+      "tier": 2,
+      "ctx": "住宿",
+      "note": "「我訂咗房」= 我訂了房間"
+    },
+    {
+      "hz": "幾點退房",
+      "jp": "gei2 dim2 teoi3 fong2",
+      "en": "what time is check-out",
+      "tier": 2,
+      "ctx": "住宿",
+      "note": "五個字五節，唔好漏「房」"
+    },
+    {
+      "hz": "我要呢個",
+      "jp": "ngo5 jiu3 ni1 go3",
+      "en": "I want this one",
+      "tier": 2,
+      "ctx": "點餐／購物",
+      "note": "手指指住餐牌講，係最省力的點餐法"
+    },
+    {
+      "hz": "餐牌",
+      "jp": "caan1 paai2",
+      "en": "menu",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "唔係「菜單」"
+    },
+    {
+      "hz": "凍奶茶",
+      "jp": "dung3 naai5 caa4",
+      "en": "iced milk tea",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "茶餐廳必備；「凍」= 冰的，「熱」= 熱的"
+    },
+    {
+      "hz": "走冰",
+      "jp": "zau2 bing1",
+      "en": "no ice",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "「走」= 去掉，唔係走開"
+    },
+    {
+      "hz": "少甜",
+      "jp": "siu2 tim1",
+      "en": "less sweet",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "連鎖店常用；相反係「多甜」"
+    },
+    {
+      "hz": "好食",
+      "jp": "hou2 sik6",
+      "en": "tasty",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "讚食物用「好食」，唔用「好吃」"
+    },
+    {
+      "hz": "唔辣",
+      "jp": "m4 laat6",
+      "en": "not spicy",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "-t 尾要收實，唔好讀成「啦」"
+    },
+    {
+      "hz": "走辣",
+      "jp": "zau2 laat6",
+      "en": "no chili",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "同「走冰」同一個「走」"
+    },
+    {
+      "hz": "埋單",
+      "jp": "maai4 daan1",
+      "en": "the bill / check, please",
+      "tier": 2,
+      "ctx": "食嘢",
+      "note": "「唔該埋單」是最實用五個字"
+    },
+    {
+      "hz": "有冇折",
+      "jp": "jau5 mou5 zit3",
+      "en": "is there a discount",
+      "tier": 2,
+      "ctx": "購物",
+      "note": "「折」= 折扣；問句用「有冇」"
+    },
+    {
+      "hz": "太貴喇",
+      "jp": "taai3 gwai3 laa3",
+      "en": "too expensive",
+      "tier": 2,
+      "ctx": "購物",
+      "note": "句尾「喇」帶「已經」的語氣，唔係單純感嘆"
+    },
+    {
+      "hz": "平啲得唔得",
+      "jp": "peng4 di1 dak1 m4 dak1",
+      "en": "can it be cheaper",
+      "tier": 2,
+      "ctx": "購物",
+      "note": "「啲」= 一點；「得唔得」= 行不行"
+    },
+    {
+      "hz": "幾多錢",
+      "jp": "gei2 do1 cin2",
+      "en": "how much (money)",
+      "tier": 2,
+      "ctx": "購物",
+      "note": "口語「蚊」= 元：十蚊 = 十元"
+    },
+    {
+      "hz": "唔使",
+      "jp": "m4 sai2",
+      "en": "no need / you're welcome",
+      "tier": 2,
+      "ctx": "回應",
+      "note": "人講多謝，可以答「唔使客氣」或「唔使」"
+    },
+    {
+      "hz": "幫我",
+      "jp": "bong1 ngo5",
+      "en": "help me",
+      "tier": 2,
+      "ctx": "求助",
+      "note": "後面直接跟動詞：「幫我影相」"
+    },
+    {
+      "hz": "救命",
+      "jp": "gau3 meng6",
+      "en": "help! (emergency)",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "真緊急才用；平時求助講「幫幫我」"
+    },
+    {
+      "hz": "我唔舒服",
+      "jp": "ngo5 m4 syu1 fuk6",
+      "en": "I don't feel well",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "五個字五節，「舒服」兩個字都係高平調"
+    },
+    {
+      "hz": "睇醫生",
+      "jp": "tai2 ji1 sang1",
+      "en": "see a doctor",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "唔講「看醫生」"
+    },
+    {
+      "hz": "醫院",
+      "jp": "ji1 jyun2",
+      "en": "hospital",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "「院」讀 jyun2，唔係 jyun6"
+    },
+    {
+      "hz": "藥房",
+      "jp": "joek6 fong2",
+      "en": "pharmacy",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "香港街舖好常見，招牌寫「藥房」"
+    },
+    {
+      "hz": "差人",
+      "jp": "caai1 jan4",
+      "en": "police",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "口語；正式講「警察」ging2 caat3"
+    },
+    {
+      "hz": "唔見咗銀包",
+      "jp": "m4 gin3 zo2 ngan4 baau1",
+      "en": "lost my wallet",
+      "tier": 2,
+      "ctx": "緊急",
+      "note": "「咗」= 了；「唔見」= 不見了"
+    },
+    {
+      "hz": "唔該借借",
+      "jp": "m4 goi1 ze3 ze3",
+      "en": "excuse me, let me through",
+      "tier": 2,
+      "ctx": "擠迫環境",
+      "note": "地鐵、街市最好用；兩個「借」都係高平"
+    },
+    {
+      "hz": "講慢啲",
+      "jp": "gong2 maan6 di1",
+      "en": "speak slower",
+      "tier": 2,
+      "ctx": "溝通補救",
+      "note": "「啲」放動詞後 = 一點"
+    },
+    {
+      "hz": "我聽唔明",
+      "jp": "ngo5 teng1 m4 ming4",
+      "en": "I don't understand (by ear)",
+      "tier": 2,
+      "ctx": "溝通補救",
+      "note": "「聽」讀 teng1；「聽日」的聽讀 ting1"
+    },
+    {
+      "hz": "得",
+      "jp": "dak1",
+      "en": "can / OK / fine",
+      "tier": 2,
+      "ctx": "回應",
+      "note": "一個字就答完；「得唔得？」「得。」"
+    },
+    {
+      "hz": "唔得",
+      "jp": "m4 dak1",
+      "en": "cannot / not OK",
+      "tier": 2,
+      "ctx": "回應",
+      "note": "拒絕但唔失禮，比「唔好」溫和"
+    },
+    {
+      "hz": "有冇",
+      "jp": "jau5 mou5",
+      "en": "is there / do you have",
+      "tier": 2,
+      "ctx": "問句框架",
+      "note": "粵語問句的主力：動詞 + 唔 + 動詞"
+    },
+    {
+      "hz": "幾點",
+      "jp": "gei2 dim2",
+      "en": "what time",
+      "tier": 2,
+      "ctx": "時間",
+      "note": "「而家幾點？」"
+    },
+    {
+      "hz": "落車",
+      "jp": "lok6 ce1",
+      "en": "get off (a vehicle)",
+      "tier": 2,
+      "ctx": "交通",
+      "note": "「落」= 下；上車係「上車」"
+    },
+    {
+      "hz": "幾多個站",
+      "jp": "gei2 do1 go3 zaam6",
+      "en": "how many stops",
+      "tier": 2,
+      "ctx": "交通",
+      "note": "量詞「個」唔可以省"
+    },
+    {
+      "hz": "而家",
+      "jp": "ji4 gaa1",
+      "en": "now",
+      "tier": 3,
+      "ctx": "時間",
+      "note": "唔講「現在」；「而家幾點」最常聽"
+    },
+    {
+      "hz": "今日",
+      "jp": "gam1 jat6",
+      "en": "today",
+      "tier": 3,
+      "ctx": "時間",
+      "note": "「今」讀 gam1，同「金」同音；唔講「今天」"
+    },
+    {
+      "hz": "聽日",
+      "jp": "ting1 jat6",
+      "en": "tomorrow",
+      "tier": 3,
+      "ctx": "時間",
+      "note": "「聽」呢度讀 ting1，同「聽嘢」的 teng1 唔同"
+    },
+    {
+      "hz": "尋日",
+      "jp": "cam4 jat6",
+      "en": "yesterday",
+      "tier": 3,
+      "ctx": "時間",
+      "note": "唔講「昨天」；「尋」低降調"
+    },
+    {
+      "hz": "朝早",
+      "jp": "ziu1 zou2",
+      "en": "morning",
+      "tier": 3,
+      "ctx": "時間",
+      "note": "「朝早」= 早上；「今朝」= 今天早上"
+    },
+    {
+      "hz": "夜晚",
+      "jp": "je6 maan5",
+      "en": "night",
+      "tier": 3,
+      "ctx": "時間",
+      "note": "「晚」讀 maan5 低升，同「慢」maan6 差一個調"
+    },
+    {
+      "hz": "得閒",
+      "jp": "dak1 haan4",
+      "en": "free (have time)",
+      "tier": 3,
+      "ctx": "約人",
+      "note": "「你得唔得閒？」= 你有空嗎"
+    },
+    {
+      "hz": "忙",
+      "jp": "mong4",
+      "en": "busy",
+      "tier": 3,
+      "ctx": "約人",
+      "note": "「好忙」= 很忙，唔需要「很」"
+    },
+    {
+      "hz": "鍾意",
+      "jp": "zung1 ji3",
+      "en": "like",
+      "tier": 3,
+      "ctx": "表達喜好",
+      "note": "唔講「喜歡」；「我鍾意食辣」"
+    },
+    {
+      "hz": "唔鍾意",
+      "jp": "m4 zung1 ji3",
+      "en": "dislike",
+      "tier": 3,
+      "ctx": "表達喜好",
+      "note": "直接加「唔」，唔需要「不喜歡」"
+    },
+    {
+      "hz": "攰",
+      "jp": "gui6",
+      "en": "tired",
+      "tier": 3,
+      "ctx": "感受",
+      "note": "單字成詞，低平調；唔講「累」"
+    },
+    {
+      "hz": "開心",
+      "jp": "hoi1 sam1",
+      "en": "happy",
+      "tier": 3,
+      "ctx": "感受",
+      "note": "「好開心」= 很高興"
+    },
+    {
+      "hz": "驚",
+      "jp": "geng1",
+      "en": "afraid / scared",
+      "tier": 3,
+      "ctx": "感受",
+      "note": "「我驚」= 我怕；「好驚」= 很怕"
+    },
+    {
+      "hz": "靚",
+      "jp": "leng3",
+      "en": "pretty / nice",
+      "tier": 3,
+      "ctx": "評價",
+      "note": "人、物、天氣都用得；「靚仔」「靚女」"
+    },
+    {
+      "hz": "好正",
+      "jp": "hou2 zeng3",
+      "en": "awesome",
+      "tier": 3,
+      "ctx": "評價",
+      "note": "高評價的口語；「正」讀 zeng3"
+    },
+    {
+      "hz": "抵",
+      "jp": "dei2",
+      "en": "good value",
+      "tier": 3,
+      "ctx": "評價",
+      "note": "「好抵」= 很划算；「抵死」係另一個意思，唔好亂用"
+    },
+    {
+      "hz": "一齊",
+      "jp": "jat1 cai4",
+      "en": "together",
+      "tier": 3,
+      "ctx": "邀約",
+      "note": "「一齊去」= 一起去"
+    },
+    {
+      "hz": "因為",
+      "jp": "jan1 wai6",
+      "en": "because",
+      "tier": 3,
+      "ctx": "連接",
+      "note": "常配「所以」，但口語可以只用「因為」"
+    },
+    {
+      "hz": "所以",
+      "jp": "so2 ji5",
+      "en": "so / therefore",
+      "tier": 3,
+      "ctx": "連接",
+      "note": "「所以呢」係口語填充語"
+    },
+    {
+      "hz": "但係",
+      "jp": "daan6 hai6",
+      "en": "but",
+      "tier": 3,
+      "ctx": "連接",
+      "note": "唔講「但是」；「係」讀輕聲都得"
+    },
+    {
+      "hz": "如果",
+      "jp": "jyu4 gwo2",
+      "en": "if",
+      "tier": 3,
+      "ctx": "連接",
+      "note": "常配「就」：「如果…就…」"
+    },
+    {
+      "hz": "其實",
+      "jp": "kei4 sat6",
+      "en": "actually",
+      "tier": 3,
+      "ctx": "連接",
+      "note": "口語高頻，用來軟化反駁"
+    },
+    {
+      "hz": "冇問題",
+      "jp": "mou5 man6 tai4",
+      "en": "no problem",
+      "tier": 3,
+      "ctx": "回應",
+      "note": "四個字四節；「問題」兩個字都係低調"
+    },
+    {
+      "hz": "唔該晒",
+      "jp": "m4 goi1 saai3",
+      "en": "thanks a lot",
+      "tier": 3,
+      "ctx": "感謝",
+      "note": "「晒」= 全部，語氣比「唔該」重"
+    },
+    {
+      "hz": "好耐冇見",
+      "jp": "hou2 noi6 mou5 gin3",
+      "en": "long time no see",
+      "tier": 3,
+      "ctx": "打招呼",
+      "note": "「耐」= 久；唔講「好久不見」"
+    }
+  ]
+}

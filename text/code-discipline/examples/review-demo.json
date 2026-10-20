@@ -1,0 +1,165 @@
+{
+  "title": "提交审查 · feat(orders): 批量创建订单",
+  "subtitle": "commit 3f9c2a1 · 7 个文件 · +482 / −37 · 作者 zhao · 2026-10-19 21:04",
+  "eyebrow": "COMMIT REVIEW · 只查安全 / 性能 / 逻辑",
+  "verdict": "block",
+  "summary": "有一个可被外部触发的 SQL 注入（阻断），另有事务边界错误会导致部分写入、金额用浮点累加会导致对账差额。修完前三条再谈合入；N+1 可以单独提一个 PR。",
+  "metrics": [
+    { "label": "阻断项", "value": "1", "tone": "bad" },
+    { "label": "逻辑问题", "value": "2", "tone": "warn" },
+    { "label": "性能问题", "value": "2", "tone": "note" },
+    { "label": "已读文件", "value": "7", "tone": "ok" }
+  ],
+  "tabs": [
+    {
+      "id": "verdict",
+      "label": "结论",
+      "blocks": [
+        {
+          "type": "flow",
+          "nodes": [
+            { "title": "GET /orders/batch", "note": "?ids=1,2,3", "tone": "info" },
+            { "title": "ids.split(\",\") 后直接拼字符串", "note": "orders.py:88", "tone": "warn", "via": "无类型校验" },
+            { "title": "cursor.execute(f\"... IN ({ids})\")", "note": "参数化失效", "tone": "bad", "via": "字符串进 SQL" },
+            { "title": "UNION SELECT 读出 users 表", "note": "token / 密码哈希", "tone": "bad", "via": "任意 SQL 片段" },
+            { "title": "接口原样返回 JSON", "note": "无脱敏", "tone": "bad", "via": "泄露" }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "bad",
+          "title": "合入结论：拒绝",
+          "text": "第 1 条是外部可直接触发的越权读取，必须先修。第 2、3 条会写错账，一起修。第 4、5 条不阻断合入，建议单独开 PR。"
+        },
+        {
+          "type": "table",
+          "head": ["#", "文件:行", "类别", "触发条件", "处理"],
+          "rows": [
+            ["1", "app/api/orders.py:88", "安全", "ids 参数含引号或括号", "本 PR 必修"],
+            ["2", "app/services/order_service.py:134", "逻辑", "任一条创建失败且已是第 2 条之后", "本 PR 必修"],
+            ["3", "app/services/order_service.py:151", "逻辑", "price 带 2 位小数、qty > 1", "本 PR 必修"],
+            ["4", "app/services/order_service.py:170", "逻辑", "rollback 抛异常时", "本 PR 必修"],
+            ["5", "app/repo/order_repo.py:42", "性能", "列表长度 > 50", "另开 PR"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "label": "安全",
+      "count": "1",
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "tone": "bad",
+              "title": "批量查询把用户输入拼进 SQL",
+              "file": "app/api/orders.py:88",
+              "trigger": "GET /orders/batch?ids=1) UNION SELECT id,email,password_hash FROM users--",
+              "body": "ids 从 query 取到后只做了 split(\",\")，没有任何白名单过滤，随后用 f-string 拼进 IN 子句。psycopg2 默认不允许一次执行多条语句，所以 DROP TABLE 那种写法会报错，但 UNION 注入成立：返回结构一致时结果会直接混进响应里。",
+              "fix": "改成按占位符展开：ids 先 int() 校验并限长（<= 100），再用 WHERE id = ANY(%s) 传 list 参数。校验失败直接 400，不要静默跳过非法元素。"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "caption": "app/api/orders.py:84-92（当前）",
+          "text": "raw = request.query_params.get(\"ids\", \"\")\nids = raw.split(\",\")\ncur.execute(\n    f\"SELECT id, user_id, amount, status FROM orders WHERE id IN ({','.join(ids)})\"\n)\nrows = cur.fetchall()\nreturn {\"items\": rows}"
+        },
+        {
+          "type": "callout",
+          "tone": "ok",
+          "title": "已确认不是问题",
+          "text": "同目录其他三个接口（orders.py:31 / :57 / :120）都用了参数化查询；认证中间件在路由之前挂载，这个接口本身需要登录态，所以是越权读取而不是未授权访问。"
+        }
+      ]
+    },
+    {
+      "id": "logic",
+      "label": "逻辑",
+      "count": "3",
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "tone": "warn",
+              "title": "循环里逐条 commit，失败时前几条已落库",
+              "file": "app/services/order_service.py:134",
+              "trigger": "一次提交 3 条，第 3 条因库存不足抛异常",
+              "body": "for 循环体内每条 create 后立即 session.commit()。第 3 条失败时，前 2 条已经提交且无法回滚，接口返回 500，但数据库里留下了 2 条订单。前端重试会产生重复订单。",
+              "fix": "整个批量包在同一个事务里：循环内只 add，循环结束后一次性 commit；外层 except 里 rollback。重复提交问题另加幂等键（client_request_id + 唯一索引）。"
+            },
+            {
+              "tone": "warn",
+              "title": "金额用 float 累加",
+              "file": "app/services/order_service.py:151",
+              "trigger": "price=19.99, qty=3 → 期望 59.97",
+              "body": "total 是 float，19.99 * 3 = 59.970000000000006。写库时按 Decimal 转一次会截断成 59.97 没问题，但 downstream 的对账脚本读的是原始 float 字段，累计 1000 条后差 1 分以上。",
+              "fix": "全程 Decimal，入库前 quantize(Decimal(\"0.01\"), ROUND_HALF_UP)；字段类型确认为 NUMERIC(12,2)。"
+            },
+            {
+              "tone": "warn",
+              "title": "rollback 的异常被吞掉",
+              "file": "app/services/order_service.py:170",
+              "trigger": "数据库连接在 commit 阶段已断开，随后 rollback 抛 InterfaceError",
+              "body": "except Exception: pass 包住 rollback。连接断裂时 session 处于不可用状态但被直接丢弃，连接池里留下脏连接，后续请求复用时会连续报错。",
+              "fix": "至少 except Exception as exc: logger.exception(...)，并且把 session 标记为需重建（session.invalidate()），不要吞。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "perf",
+      "label": "性能",
+      "count": "1",
+      "blocks": [
+        {
+          "type": "cards",
+          "items": [
+            {
+              "tone": "note",
+              "title": "列表页触发 N+1 查询",
+              "file": "app/repo/order_repo.py:42",
+              "trigger": "GET /orders?page_size=100 → 1 次主查询 + 100 次明细查询",
+              "body": "返回订单列表后，序列化时逐条访问 order.items（惰性加载）。page_size=100 时 101 次往返，p99 从 40ms 涨到 780ms（本地 pg 实测）。",
+              "fix": "查询时加 selectinload(Order.items)，或在 repo 层批量取明细后按 order_id 组装。注意加了 selectinload 后不要再用 joinedload，否则会产生笛卡尔积。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "checked",
+      "label": "已检查",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "以下项目按顺序过了一遍，没有发现问题。列出来是为了说明这次审查不是只看 diff 标题。"
+        },
+        {
+          "type": "list",
+          "items": [
+            "认证与授权：新接口挂在内网路由组之外，require_user 生效；无新增的角色判断分支。",
+            "输入边界：数量上限 100 有校验；空数组走的是 400 而不是全表查询。",
+            "密钥与日志：diff 内无硬编码凭据；新增的 logger.info 只打印 order_id 和数量，没有金额与用户标识。",
+            "并发：批量接口没有跨请求共享的可变状态；唯一索引覆盖了重复提交的主要场景。",
+            "资源释放：cursor 与 session 都在 finally 里关闭，没有句柄泄漏。",
+            "迁移脚本：新增索引 orders(user_id, created_at) 与查询条件一致，无冗余索引。",
+            "依赖变更：requirements.txt 只加了一行 pydantic 版本上限，无供应链风险。"
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "这次没查的",
+          "text": "按约定不看命名、格式、注释和 import 顺序。单测覆盖率不在这份报告的范围内，另见 CI 结果。"
+        }
+      ]
+    }
+  ],
+  "footer": "审查范围：git show 3f9c2a1 · 只看安全 / 性能 / 逻辑",
+  "generated": "2026-10-20 23:50"
+}

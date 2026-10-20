@@ -1,0 +1,28 @@
+{
+  "learner": "Ada",
+  "level": "beginner",
+  "goal": "travel",
+  "minutes_per_day": 20,
+  "days_per_week": 6,
+  "romanization": "jyutping",
+  "script": "traditional",
+  "native_language": "zh-Hans",
+  "start_date": "2026-10-21",
+  "interests": [
+    "茶餐廳",
+    "港劇",
+    "行山"
+  ],
+  "weak_points": [
+    "聲調（聽唔出 2 同 5）",
+    "入聲 -p/-t/-k 會加多個「呃」音"
+  ],
+  "diagnostic": {
+    "tone_discrimination": 1,
+    "listen_repeat": 2,
+    "self_intro": 1,
+    "particle_recognition": 0,
+    "read_aloud": 1,
+    "comprehension": 1
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "_note": "由 haircode.py --emit-spec 生成。structure 已按指宽改写过，不要再手改 fringe。",
+  "code": "BBA",
+  "alias_graphic": "BBA",
+  "hairtype": "A",
+  "style": {
+    "name": "自然中分",
+    "index": 1,
+    "why": "方脸加颧宽是「两头顶着」的宽。只有把长度拉过下颌、把分线做成纵向，宽度才会变成体积，而不是继续是宽。",
+    "risk": "长度卡在颌线附近、两侧又贴头，脸会变成一个正方形。",
+    "structure": {
+      "part": "自然中分，分线浅、两侧立起 1cm",
+      "fringe": "中分两侧到颧骨，发尾碎",
+      "side": "两侧盖耳，鬓角到颌角上缘",
+      "nape": "后颈留到颈中",
+      "layer": "轻层次，中长，发尾柔",
+      "volume": "顶部自然，后脑饱满"
+    }
+  },
+  "ref": {
+    "path": "assets/face.jpg",
+    "note": "参考图同时是身份、光线、背景、构图、衣物的唯一来源"
+  },
+  "frame": {
+    "aspect": "3:4",
+    "size": "1536x2048"
+  },
+  "keep": {
+    "identity": "脸型骨相、五官比例、眼型、鼻、唇、肤色、年龄感、胡须与痣",
+    "hairline": "发际线的高度与形状、额角、鬓角起点、发旋位置",
+    "light": "参考图的光位、光比、色温",
+    "background": "参考图的背景（同一面墙、同样的明暗与颜色）",
+    "frame": "参考图的构图与镜头距离、头部在画面里的位置与大小",
+    "expression": "参考图的表情",
+    "wardrobe": "参考图里的衣服"
+  },
+  "negative_extra": []
+}

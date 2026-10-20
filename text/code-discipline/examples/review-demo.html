@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>提交审查 · feat(orders): 批量创建订单</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --ink:#101828;--ink2:#475467;--ink3:#667085;--line:#e4e7ec;--line2:#d0d5dd;
+  --bg:#f9fafb;--surface:#fff;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  padding:0 20px 72px;
+}
+.wrap{max-width:1040px;margin:0 auto}
+
+/* ---- 头部 ---- */
+header.top{padding:40px 0 28px;border-bottom:1px solid var(--line2);margin-bottom:0}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:10px}
+h1{font-size:29px;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em;font-weight:700}
+.sub{color:var(--ink2);font-size:14px;margin:0}
+.verdict{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  padding:7px 15px 7px 12px;border-radius:999px;font-weight:600;font-size:14px;
+  color:var(--vc);background:var(--vb);border:1px solid color-mix(in srgb,var(--vc) 26%,transparent);
+}
+.verdict::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--vc)}
+.summary{
+  margin:24px 0 0;padding:16px 20px;background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--ink);border-radius:3px;font-size:15.5px;color:var(--ink);
+}
+
+/* ---- 指标 ---- */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin:26px 0 0}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:13px 15px}
+.metric b{display:block;font-size:25px;line-height:1.15;color:var(--mc);font-variant-numeric:tabular-nums}
+.metric span{display:block;font-size:12px;color:var(--ink3);margin-top:3px}
+
+/* ---- 标签页 ---- */
+nav.tabs{
+  position:sticky;top:0;z-index:9;display:flex;gap:2px;flex-wrap:wrap;
+  margin:32px 0 0;padding:10px 0 0;background:var(--bg);border-bottom:1px solid var(--line2);
+}
+nav.tabs button{
+  appearance:none;border:0;background:none;font:inherit;font-size:14px;font-weight:500;
+  color:var(--ink2);padding:9px 15px;border-radius:7px 7px 0 0;cursor:pointer;position:relative;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+}
+nav.tabs button:hover{color:var(--ink);background:#f2f4f7}
+nav.tabs button[aria-selected=true]{color:var(--ink);font-weight:650;border-bottom-color:var(--ink);background:var(--surface)}
+nav.tabs button em{font-style:normal;font-size:11px;color:var(--ink3);margin-left:6px}
+nav.tabs button[aria-selected=true] em{color:var(--ink2)}
+
+.panel{display:none;padding:26px 0 0}
+.panel[data-active=true]{display:block;animation:fade .18s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+
+/* ---- 通用块 ---- */
+.panel>*+*{margin-top:18px}
+h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:650;margin:30px 0 0}
+.panel>h2:first-child{margin-top:0}
+.para{margin:0;color:var(--ink)}
+.bullet{margin:0;padding-left:22px;color:var(--ink)}
+.bullet li{margin:5px 0}
+.bullet li::marker{color:var(--ink3)}
+
+.callout{display:flex;gap:13px;padding:15px 18px;border-radius:8px;background:var(--tb);border:1px solid color-mix(in srgb,var(--tc) 22%,transparent);border-left:3px solid var(--tc)}
+.callout h3{margin:0 0 5px;font-size:14.5px;color:var(--tc)}
+.callout p{margin:0;font-size:14px;color:var(--ink2)}
+
+.cards{display:grid;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--tc);border-radius:8px;padding:15px 18px}
+.card header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.card h3{margin:0;font-size:15.5px;font-weight:650;letter-spacing:-.005em}
+.pill{font-size:11px;font-weight:650;color:var(--tc);background:var(--tb);border:1px solid color-mix(in srgb,var(--tc) 22%,transparent);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.cmeta{display:flex;gap:10px;flex-wrap:wrap;margin:9px 0 0;align-items:center}
+.loc{font-family:var(--mono);font-size:12.5px;background:#f2f4f7;border:1px solid var(--line);padding:1.5px 7px;border-radius:5px;color:var(--ink)}
+.trig{font-size:12.5px;color:var(--ink2)}
+.cbody{margin:10px 0 0;font-size:14px;color:var(--ink2)}
+.cfix{margin:9px 0 0;font-size:13.5px;color:var(--ink);background:#f9fafb;border:1px dashed var(--line2);border-radius:6px;padding:8px 11px}
+.cfix b{color:var(--ink3);font-weight:650;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-right:9px}
+
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+caption{caption-side:top;text-align:left;padding:11px 14px;font-size:12.5px;color:var(--ink3);border-bottom:1px solid var(--line)}
+th{text-align:left;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);font-weight:650;background:#f9fafb;padding:9px 14px;border-bottom:1px solid var(--line)}
+td{padding:9px 14px;border-bottom:1px solid #f2f4f7;color:var(--ink2);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#fcfcfd}
+
+.codeblock{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.codecap{font-family:var(--mono);font-size:12px;color:var(--ink3);padding:8px 14px;border-bottom:1px solid var(--line);background:#f9fafb}
+pre{margin:0;padding:14px 16px;overflow-x:auto}
+pre code{font-family:var(--mono);font-size:12.8px;line-height:1.6;color:#1d2939}
+
+/* ---- 流程图 ---- */
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.fnode{
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+  background:var(--tb);background:color-mix(in srgb,var(--tc) 7%,#fff);
+  border:1px solid color-mix(in srgb,var(--tc) 26%,transparent);
+  border-left:4px solid var(--tc);border-radius:7px;padding:11px 14px;
+}
+.fidx{
+  flex:0 0 auto;width:21px;height:21px;border-radius:50%;background:var(--tc);color:#fff;
+  font-size:11.5px;font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums;
+}
+.ftitle{font-size:14.5px;font-weight:600;color:var(--ink)}
+.fnote{font-size:12.5px;color:var(--ink2);font-family:var(--mono)}
+.ftag{
+  font-size:10.5px;font-weight:650;color:var(--tc);letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid color-mix(in srgb,var(--tc) 24%,transparent);border-radius:4px;padding:1px 6px;
+}
+.fvia{height:26px;margin-left:21px;border-left:2px dashed var(--line2);position:relative}
+.fvia::after{
+  content:"";position:absolute;left:-5.5px;bottom:0;
+  border-left:6px solid transparent;border-right:6px solid transparent;
+  border-top:7px solid #98a2b3;
+}
+.fvia span{
+  position:absolute;left:9px;top:50%;transform:translateY(-50%);
+  font-size:11.5px;color:var(--ink3);background:var(--surface);padding:0 6px;white-space:nowrap;
+}
+.fvia-bare span{display:none}
+
+footer{margin:52px 0 0;padding-top:18px;border-top:1px solid var(--line2);font-size:12px;color:var(--ink3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:640px){
+  body{padding:0 14px 48px}
+  h1{font-size:23px}
+  .ftag{margin-left:0;width:100%}
+}
+@media print{
+  body{background:#fff;padding:0}
+  nav.tabs{display:none}
+  .panel{display:block!important;break-inside:avoid;page-break-inside:avoid}
+  .panel::before{content:attr(data-label);display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#667085;margin:26px 0 8px;font-weight:650}
+  .card,.callout,.flow,table{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">COMMIT REVIEW · 只查安全 / 性能 / 逻辑</div>
+    <h1>提交审查 · feat(orders): 批量创建订单</h1>
+    <p class="sub">commit 3f9c2a1 · 7 个文件 · +482 / −37 · 作者 zhao · 2026-10-19 21:04</p>
+    <div class="verdict" style="--vc:#b42318;--vb:#fef3f2">不可合入</div>
+    <p class="summary">有一个可被外部触发的 SQL 注入（阻断），另有事务边界错误会导致部分写入、金额用浮点累加会导致对账差额。修完前三条再谈合入；N+1 可以单独提一个 PR。</p>
+    <div class="metrics"><div class="metric" style="--mc:#b42318"><b>1</b><span>阻断项</span></div><div class="metric" style="--mc:#b54708"><b>2</b><span>逻辑问题</span></div><div class="metric" style="--mc:#a16207"><b>2</b><span>性能问题</span></div><div class="metric" style="--mc:#067647"><b>7</b><span>已读文件</span></div></div>
+  </header>
+
+  <nav class="tabs" role="tablist"><button role="tab" data-tab="verdict" aria-controls="p-verdict">结论</button><button role="tab" data-tab="security" aria-controls="p-security">安全<em>1</em></button><button role="tab" data-tab="logic" aria-controls="p-logic">逻辑<em>3</em></button><button role="tab" data-tab="perf" aria-controls="p-perf">性能<em>1</em></button><button role="tab" data-tab="checked" aria-controls="p-checked">已检查</button></nav>
+  <section class="panel" id="p-verdict" role="tabpanel" data-label="结论"><div class="flow"><div class="fnode" style="--tc:#175cd3;--tb:#eff8ff"><span class="fidx">1</span><span class="ftitle">GET /orders/batch</span><span class="fnote">?ids=1,2,3</span><span class="ftag">背景 / 说明</span></div><div class="fvia"><span>无类型校验</span></div><div class="fnode" style="--tc:#b54708;--tb:#fffaeb"><span class="fidx">2</span><span class="ftitle">ids.split(&quot;,&quot;) 后直接拼字符串</span><span class="fnote">orders.py:88</span><span class="ftag">逻辑 / 正确性</span></div><div class="fvia"><span>字符串进 SQL</span></div><div class="fnode" style="--tc:#b42318;--tb:#fef3f2"><span class="fidx">3</span><span class="ftitle">cursor.execute(f&quot;... IN ({ids})&quot;)</span><span class="fnote">参数化失效</span><span class="ftag">阻断 / 安全</span></div><div class="fvia"><span>任意 SQL 片段</span></div><div class="fnode" style="--tc:#b42318;--tb:#fef3f2"><span class="fidx">4</span><span class="ftitle">UNION SELECT 读出 users 表</span><span class="fnote">token / 密码哈希</span><span class="ftag">阻断 / 安全</span></div><div class="fvia"><span>泄露</span></div><div class="fnode" style="--tc:#b42318;--tb:#fef3f2"><span class="fidx">5</span><span class="ftitle">接口原样返回 JSON</span><span class="fnote">无脱敏</span><span class="ftag">阻断 / 安全</span></div></div><aside class="callout" style="--tc:#b42318;--tb:#fef3f2"><div><h3>合入结论：拒绝</h3><p>第 1 条是外部可直接触发的越权读取，必须先修。第 2、3 条会写错账，一起修。第 4、5 条不阻断合入，建议单独开 PR。</p></div></aside><div class="tw"><table><thead><tr><th>#</th><th>文件:行</th><th>类别</th><th>触发条件</th><th>处理</th></tr></thead><tbody><tr><td>1</td><td>app/api/orders.py:88</td><td>安全</td><td>ids 参数含引号或括号</td><td>本 PR 必修</td></tr><tr><td>2</td><td>app/services/order_service.py:134</td><td>逻辑</td><td>任一条创建失败且已是第 2 条之后</td><td>本 PR 必修</td></tr><tr><td>3</td><td>app/services/order_service.py:151</td><td>逻辑</td><td>price 带 2 位小数、qty &gt; 1</td><td>本 PR 必修</td></tr><tr><td>4</td><td>app/services/order_service.py:170</td><td>逻辑</td><td>rollback 抛异常时</td><td>本 PR 必修</td></tr><tr><td>5</td><td>app/repo/order_repo.py:42</td><td>性能</td><td>列表长度 &gt; 50</td><td>另开 PR</td></tr></tbody></table></div></section><section class="panel" id="p-security" role="tabpanel" data-label="安全"><div class="cards"><article class="card" style="--tc:#b42318;--tb:#fef3f2"><header><span class="pill">阻断 / 安全</span><h3>批量查询把用户输入拼进 SQL</h3></header><div class="cmeta"><code class="loc">app/api/orders.py:88</code><span class="trig">触发：GET /orders/batch?ids=1) UNION SELECT id,email,password_hash FROM users--</span></div><p class="cbody">ids 从 query 取到后只做了 split(&quot;,&quot;)，没有任何白名单过滤，随后用 f-string 拼进 IN 子句。psycopg2 默认不允许一次执行多条语句，所以 DROP TABLE 那种写法会报错，但 UNION 注入成立：返回结构一致时结果会直接混进响应里。</p><p class="cfix"><b>修法</b>改成按占位符展开：ids 先 int() 校验并限长（&lt;= 100），再用 WHERE id = ANY(%s) 传 list 参数。校验失败直接 400，不要静默跳过非法元素。</p></article></div><div class="codeblock"><div class="codecap">app/api/orders.py:84-92（当前）</div><pre><code>raw = request.query_params.get(&quot;ids&quot;, &quot;&quot;)
+ids = raw.split(&quot;,&quot;)
+cur.execute(
+    f&quot;SELECT id, user_id, amount, status FROM orders WHERE id IN ({&#x27;,&#x27;.join(ids)})&quot;
+)
+rows = cur.fetchall()
+return {&quot;items&quot;: rows}</code></pre></div><aside class="callout" style="--tc:#067647;--tb:#ecfdf3"><div><h3>已确认不是问题</h3><p>同目录其他三个接口（orders.py:31 / :57 / :120）都用了参数化查询；认证中间件在路由之前挂载，这个接口本身需要登录态，所以是越权读取而不是未授权访问。</p></div></aside></section><section class="panel" id="p-logic" role="tabpanel" data-label="逻辑"><div class="cards"><article class="card" style="--tc:#b54708;--tb:#fffaeb"><header><span class="pill">逻辑 / 正确性</span><h3>循环里逐条 commit，失败时前几条已落库</h3></header><div class="cmeta"><code class="loc">app/services/order_service.py:134</code><span class="trig">触发：一次提交 3 条，第 3 条因库存不足抛异常</span></div><p class="cbody">for 循环体内每条 create 后立即 session.commit()。第 3 条失败时，前 2 条已经提交且无法回滚，接口返回 500，但数据库里留下了 2 条订单。前端重试会产生重复订单。</p><p class="cfix"><b>修法</b>整个批量包在同一个事务里：循环内只 add，循环结束后一次性 commit；外层 except 里 rollback。重复提交问题另加幂等键（client_request_id + 唯一索引）。</p></article><article class="card" style="--tc:#b54708;--tb:#fffaeb"><header><span class="pill">逻辑 / 正确性</span><h3>金额用 float 累加</h3></header><div class="cmeta"><code class="loc">app/services/order_service.py:151</code><span class="trig">触发：price=19.99, qty=3 → 期望 59.97</span></div><p class="cbody">total 是 float，19.99 * 3 = 59.970000000000006。写库时按 Decimal 转一次会截断成 59.97 没问题，但 downstream 的对账脚本读的是原始 float 字段，累计 1000 条后差 1 分以上。</p><p class="cfix"><b>修法</b>全程 Decimal，入库前 quantize(Decimal(&quot;0.01&quot;), ROUND_HALF_UP)；字段类型确认为 NUMERIC(12,2)。</p></article><article class="card" style="--tc:#b54708;--tb:#fffaeb"><header><span class="pill">逻辑 / 正确性</span><h3>rollback 的异常被吞掉</h3></header><div class="cmeta"><code class="loc">app/services/order_service.py:170</code><span class="trig">触发：数据库连接在 commit 阶段已断开，随后 rollback 抛 InterfaceError</span></div><p class="cbody">except Exception: pass 包住 rollback。连接断裂时 session 处于不可用状态但被直接丢弃，连接池里留下脏连接，后续请求复用时会连续报错。</p><p class="cfix"><b>修法</b>至少 except Exception as exc: logger.exception(...)，并且把 session 标记为需重建（session.invalidate()），不要吞。</p></article></div></section><section class="panel" id="p-perf" role="tabpanel" data-label="性能"><div class="cards"><article class="card" style="--tc:#a16207;--tb:#fefce8"><header><span class="pill">性能 / 资源</span><h3>列表页触发 N+1 查询</h3></header><div class="cmeta"><code class="loc">app/repo/order_repo.py:42</code><span class="trig">触发：GET /orders?page_size=100 → 1 次主查询 + 100 次明细查询</span></div><p class="cbody">返回订单列表后，序列化时逐条访问 order.items（惰性加载）。page_size=100 时 101 次往返，p99 从 40ms 涨到 780ms（本地 pg 实测）。</p><p class="cfix"><b>修法</b>查询时加 selectinload(Order.items)，或在 repo 层批量取明细后按 order_id 组装。注意加了 selectinload 后不要再用 joinedload，否则会产生笛卡尔积。</p></article></div></section><section class="panel" id="p-checked" role="tabpanel" data-label="已检查"><p class="para">以下项目按顺序过了一遍，没有发现问题。列出来是为了说明这次审查不是只看 diff 标题。</p><ul class="bullet"><li>认证与授权：新接口挂在内网路由组之外，require_user 生效；无新增的角色判断分支。</li><li>输入边界：数量上限 100 有校验；空数组走的是 400 而不是全表查询。</li><li>密钥与日志：diff 内无硬编码凭据；新增的 logger.info 只打印 order_id 和数量，没有金额与用户标识。</li><li>并发：批量接口没有跨请求共享的可变状态；唯一索引覆盖了重复提交的主要场景。</li><li>资源释放：cursor 与 session 都在 finally 里关闭，没有句柄泄漏。</li><li>迁移脚本：新增索引 orders(user_id, created_at) 与查询条件一致，无冗余索引。</li><li>依赖变更：requirements.txt 只加了一行 pydantic 版本上限，无供应链风险。</li></ul><aside class="callout" style="--tc:#175cd3;--tb:#eff8ff"><div><h3>这次没查的</h3><p>按约定不看命名、格式、注释和 import 顺序。单测覆盖率不在这份报告的范围内，另见 CI 结果。</p></div></aside></section>
+
+  <footer><span>审查范围：git show 3f9c2a1 · 只看安全 / 性能 / 逻辑</span><span>2026-10-20 23:50</span></footer>
+</div>
+<script>
+(function(){
+  var nav=document.querySelector('nav.tabs');
+  var btns=[].slice.call(nav.querySelectorAll('button'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  function show(id){
+    btns.forEach(function(b){b.setAttribute('aria-selected', b.dataset.tab===id?'true':'false');});
+    panels.forEach(function(p){p.dataset.active = p.id===('p-'+id) ? 'true':'false';});
+    if(history.replaceState){history.replaceState(null,'','#'+id);}
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){show(b.dataset.tab);});
+  });
+  var want=location.hash.slice(1);
+  var ok=btns.some(function(b){return b.dataset.tab===want;});
+  show(ok?want:btns[0].dataset.tab);
+})();
+</script>
+</body>
+</html>
