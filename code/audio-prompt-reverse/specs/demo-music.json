@@ -1,0 +1,12 @@
+{
+  "_comment": "用户补充信息。机器测不出来的东西全写在这里，每一项都会带着 user: 前缀进追溯表，用户对自己的判断负责，机器对自己的判断负责。",
+  "intent": "把这段素材逆向成 Suno 能直接用的 style prompt",
+  "usage": "短视频背景音乐，不能抢人声",
+  "duration_target": 60,
+  "genre_hint": "",
+  "instruments_seen": ["钢琴", "贝斯", "底鼓"],
+  "vocal": {
+    "present": false
+  },
+  "negative": ["不要歌词", "不要萨克斯"]
+}

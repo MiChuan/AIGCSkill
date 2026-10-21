@@ -1,0 +1,1596 @@
+{
+  "version": "1.0.0",
+  "note": "数值到措辞的唯一映射表。改 prompt 的用词改这里，不要改脚本。每个条目都必须能用 features.json 里的某个字段解释，否则它不是描述，是编造。",
+  "descriptors": {
+    "tempo_band": {
+      "very_slow": {
+        "trace": "tempo_bpm",
+        "en": "very slow, almost static pulse",
+        "zh": "极慢，近乎静止的脉动"
+      },
+      "slow": {
+        "trace": "tempo_bpm",
+        "en": "slow, laid-back groove",
+        "zh": "慢速松弛的律动"
+      },
+      "midtempo": {
+        "trace": "tempo_bpm",
+        "en": "mid-tempo groove",
+        "zh": "中速律动"
+      },
+      "up": {
+        "trace": "tempo_bpm",
+        "en": "up-tempo, driving",
+        "zh": "偏快，往前推"
+      },
+      "fast": {
+        "trace": "tempo_bpm",
+        "en": "fast, energetic",
+        "zh": "快速，有能量"
+      },
+      "frantic": {
+        "trace": "tempo_bpm",
+        "en": "fast and frantic",
+        "zh": "高速且急促"
+      },
+      "free": {
+        "trace": "tempo_bpm",
+        "en": "rubato, no fixed pulse",
+        "zh": "自由速度，无固定节拍"
+      }
+    },
+    "brightness": {
+      "very_dark": {
+        "trace": "centroid_hz",
+        "en": "very dark, low-passed",
+        "zh": "极暗，像被低通滤过"
+      },
+      "dark": {
+        "trace": "centroid_hz",
+        "en": "dark and warm",
+        "zh": "偏暗温暖"
+      },
+      "neutral": {
+        "trace": "centroid_hz",
+        "en": "balanced, mid-forward",
+        "zh": "均衡，中频略突出"
+      },
+      "bright": {
+        "trace": "centroid_hz",
+        "en": "bright and present",
+        "zh": "明亮，临场感强"
+      },
+      "glass": {
+        "trace": "centroid_hz",
+        "en": "glass-bright, airy highs",
+        "zh": "通透明亮，高频泛空气感"
+      }
+    },
+    "energy": {
+      "quiet": {
+        "trace": "rms_dbfs",
+        "en": "quiet, restrained",
+        "zh": "音量偏轻，动态留得多"
+      },
+      "moderate": {
+        "trace": "rms_dbfs",
+        "en": "moderate level",
+        "zh": "中等音量"
+      },
+      "loud": {
+        "trace": "rms_dbfs",
+        "en": "normal mastered loudness",
+        "zh": "常规成品响度"
+      },
+      "hot": {
+        "trace": "rms_dbfs",
+        "en": "crushed to maximum loudness",
+        "zh": "压得很满，接近极限响度"
+      }
+    },
+    "texture": {
+      "tonal": {
+        "trace": "flatness",
+        "en": "clean tonal harmonics",
+        "zh": "干净的谐波音色"
+      },
+      "mixed": {
+        "trace": "flatness",
+        "en": "tonal with a bit of grit",
+        "zh": "带颗粒感的音色"
+      },
+      "noisy": {
+        "trace": "flatness",
+        "en": "noise-based, breathy",
+        "zh": "以噪声为主，偏沙沙/气声"
+      }
+    },
+    "density": {
+      "sparse": {
+        "trace": "onset_rate",
+        "en": "sparse arrangement, lots of space",
+        "zh": "编排稀疏，留白多"
+      },
+      "medium": {
+        "trace": "onset_rate",
+        "en": "moderately busy",
+        "zh": "疏密适中"
+      },
+      "dense": {
+        "trace": "onset_rate",
+        "en": "busy, dense events",
+        "zh": "密集，事件多"
+      }
+    },
+    "dynamics": {
+      "compressed": {
+        "trace": "lra_db",
+        "en": "tightly compressed dynamics",
+        "zh": "动态压缩得很紧"
+      },
+      "controlled": {
+        "trace": "lra_db",
+        "en": "controlled dynamics",
+        "zh": "动态受控"
+      },
+      "wide": {
+        "trace": "lra_db",
+        "en": "wide dynamics, big swells",
+        "zh": "动态对比大，起伏明显"
+      }
+    },
+    "space": {
+      "dry": {
+        "trace": "reverb_tail_ms",
+        "en": "dry, close-miked",
+        "zh": "干声，近距离收音"
+      },
+      "room": {
+        "trace": "reverb_tail_ms",
+        "en": "small room ambience",
+        "zh": "小房间空间感"
+      },
+      "hall": {
+        "trace": "reverb_tail_ms",
+        "en": "large hall reverb",
+        "zh": "大厅混响"
+      },
+      "cavern": {
+        "trace": "reverb_tail_ms",
+        "en": "vast cavernous reverb",
+        "zh": "巨大的空间残响"
+      }
+    },
+    "width": {
+      "mono": {
+        "trace": "stereo_corr",
+        "en": "mono-compatible",
+        "zh": "单声道质感"
+      },
+      "narrow": {
+        "trace": "stereo_corr",
+        "en": "narrow stereo image",
+        "zh": "声场偏窄"
+      },
+      "wide": {
+        "trace": "stereo_corr",
+        "en": "wide stereo image",
+        "zh": "较宽的立体声场"
+      },
+      "very_wide": {
+        "trace": "stereo_corr",
+        "en": "very wide, immersive",
+        "zh": "非常宽，包围感强"
+      }
+    },
+    "low_end": {
+      "light": {
+        "trace": "band_ratios.sub+bass",
+        "en": "light low end",
+        "zh": "低频偏少"
+      },
+      "balanced": {
+        "trace": "band_ratios.sub+bass",
+        "en": "balanced low end",
+        "zh": "低频均衡"
+      },
+      "heavy": {
+        "trace": "band_ratios.sub+bass",
+        "en": "heavy low end with sub bass",
+        "zh": "低频厚，含超低频"
+      },
+      "overwhelming": {
+        "trace": "band_ratios.sub+bass",
+        "en": "dominating sub bass",
+        "zh": "以超低频为主"
+      }
+    }
+  },
+  "slot_order": {
+    "music": [
+      "scene_genre",
+      "mood",
+      "instrumentation",
+      "rhythm_key",
+      "timbre",
+      "vocal",
+      "structure",
+      "mix"
+    ],
+    "sfx": [
+      "source_action",
+      "material",
+      "envelope",
+      "spectral",
+      "space",
+      "duration",
+      "perspective",
+      "use_case"
+    ],
+    "ambience": [
+      "space",
+      "sources",
+      "distance",
+      "time_weather",
+      "texture",
+      "motion",
+      "loop",
+      "mix"
+    ],
+    "voice": [
+      "timbre",
+      "register",
+      "delivery",
+      "pace",
+      "emotion",
+      "recording",
+      "duration",
+      "use_case"
+    ]
+  },
+  "slot_captions": {
+    "scene_genre": {
+      "en": "Genre / scene",
+      "zh": "类型与场景"
+    },
+    "mood": {
+      "en": "Mood",
+      "zh": "情绪"
+    },
+    "instrumentation": {
+      "en": "Instrumentation",
+      "zh": "配器"
+    },
+    "rhythm_key": {
+      "en": "Tempo / key / groove",
+      "zh": "速度与调性"
+    },
+    "timbre": {
+      "en": "Timbre & production",
+      "zh": "音色与制作"
+    },
+    "vocal": {
+      "en": "Vocals",
+      "zh": "人声"
+    },
+    "structure": {
+      "en": "Structure",
+      "zh": "结构与时值"
+    },
+    "mix": {
+      "en": "Mix & master",
+      "zh": "混音与母带"
+    },
+    "source_action": {
+      "en": "Source & action",
+      "zh": "声源与动作"
+    },
+    "material": {
+      "en": "Material",
+      "zh": "材质"
+    },
+    "envelope": {
+      "en": "Envelope",
+      "zh": "包络"
+    },
+    "spectral": {
+      "en": "Spectral character",
+      "zh": "频谱特征"
+    },
+    "space": {
+      "en": "Space",
+      "zh": "空间"
+    },
+    "duration": {
+      "en": "Duration",
+      "zh": "时长"
+    },
+    "perspective": {
+      "en": "Mic perspective",
+      "zh": "收音距离"
+    },
+    "use_case": {
+      "en": "Use case",
+      "zh": "用途"
+    },
+    "sources": {
+      "en": "Sources",
+      "zh": "声源构成"
+    },
+    "distance": {
+      "en": "Distance",
+      "zh": "远近"
+    },
+    "time_weather": {
+      "en": "Time & weather",
+      "zh": "时间与天气"
+    },
+    "texture": {
+      "en": "Texture",
+      "zh": "质感"
+    },
+    "motion": {
+      "en": "Motion",
+      "zh": "动静"
+    },
+    "loop": {
+      "en": "Loopability",
+      "zh": "可循环"
+    },
+    "register": {
+      "en": "Register",
+      "zh": "音区"
+    },
+    "delivery": {
+      "en": "Delivery",
+      "zh": "表达方式"
+    },
+    "pace": {
+      "en": "Pace",
+      "zh": "语速"
+    },
+    "emotion": {
+      "en": "Emotion",
+      "zh": "情绪"
+    },
+    "recording": {
+      "en": "Recording",
+      "zh": "录制质地"
+    }
+  },
+  "genre_bank": [
+    {
+      "id": "ambient-drone",
+      "en": "ambient drone",
+      "zh": "氛围长音 / 无人机 pad",
+      "words": {
+        "en": [
+          "slow-moving",
+          "beatless",
+          "sustained"
+        ],
+        "zh": [
+          "缓慢演进",
+          "无节拍",
+          "长音铺底"
+        ]
+      },
+      "unless": {
+        "tempo_bpm": [
+          60,
+          220
+        ],
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      },
+      "when": {
+        "onset_rate": [
+          0,
+          1.5
+        ],
+        "centroid_hz": [
+          0,
+          2200
+        ],
+        "lra_db": [
+          4,
+          40
+        ],
+        "traits": {
+          "density": [
+            "sparse",
+            "medium"
+          ],
+          "space": [
+            "room",
+            "hall",
+            "cavern"
+          ]
+        }
+      }
+    },
+    {
+      "id": "lofi-hiphop",
+      "en": "lo-fi hip hop",
+      "zh": "低保真嘻哈",
+      "words": {
+        "en": [
+          "dusty",
+          "tape-warmed",
+          "laid-back"
+        ],
+        "zh": [
+          "慵懒",
+          "磁带味",
+          "颗粒感"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          70,
+          100
+        ],
+        "traits": {
+          "brightness": [
+            "very_dark",
+            "dark",
+            "neutral"
+          ],
+          "low_end": [
+            "balanced",
+            "heavy"
+          ],
+          "dynamics": [
+            "compressed",
+            "controlled"
+          ]
+        }
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "boom-bap",
+      "en": "boom bap hip hop",
+      "zh": "东岸鼓点嘻哈",
+      "words": {
+        "en": [
+          "swung drums",
+          "sampled"
+        ],
+        "zh": [
+          "散射鼓组",
+          "采样质感"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          85,
+          100
+        ],
+        "traits": {
+          "density": [
+            "sparse",
+            "medium"
+          ],
+          "low_end": [
+            "balanced",
+            "heavy"
+          ],
+          "texture": [
+            "tonal",
+            "mixed"
+          ]
+        }
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "trap",
+      "en": "trap",
+      "zh": "陷阱音乐",
+      "words": {
+        "en": [
+          "half-time drums",
+          "rolling hi-hats",
+          "808 slides"
+        ],
+        "zh": [
+          "半速鼓组",
+          "滚动踩镲",
+          "808 滑音"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          130,
+          175
+        ],
+        "traits": {
+          "low_end": [
+            "heavy",
+            "overwhelming"
+          ],
+          "density": [
+            "medium",
+            "dense"
+          ]
+        },
+        "band_ratios.air_min": 0.03
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "house",
+      "en": "house",
+      "zh": "浩室电子",
+      "words": {
+        "en": [
+          "four-on-the-floor",
+          "steady kick"
+        ],
+        "zh": [
+          "四四拍强势底鼓",
+          "稳定推进"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          118,
+          130
+        ],
+        "beat_clarity": [
+          3.0,
+          99
+        ],
+        "traits": {
+          "density": [
+            "medium",
+            "dense"
+          ],
+          "low_end": [
+            "balanced",
+            "heavy"
+          ]
+        }
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "techno",
+      "en": "techno",
+      "zh": "铁克诺电子",
+      "words": {
+        "en": [
+          "relentless",
+          "repetitive",
+          "hypnotic"
+        ],
+        "zh": [
+          "不间断",
+          "重复性动机",
+          "催眠感"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          125,
+          145
+        ],
+        "beat_clarity": [
+          3.0,
+          99
+        ],
+        "traits": {
+          "brightness": [
+            "neutral",
+            "bright"
+          ],
+          "space": [
+            "dry",
+            "room",
+            "hall"
+          ]
+        }
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "dnb",
+      "en": "drum and bass",
+      "zh": "鼓打贝斯",
+      "words": {
+        "en": [
+          "breakbeat",
+          "fast sub"
+        ],
+        "zh": [
+          "碎拍",
+          "高速低频"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          165,
+          180
+        ],
+        "traits": {
+          "density": [
+            "dense"
+          ],
+          "low_end": [
+            "heavy",
+            "overwhelming"
+          ]
+        }
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "pop",
+      "en": "pop",
+      "zh": "流行",
+      "words": {
+        "en": [
+          "radio-ready",
+          "hooky"
+        ],
+        "zh": [
+          "流行编制",
+          "抓耳旋律"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          95,
+          128
+        ],
+        "traits": {
+          "brightness": [
+            "neutral",
+            "bright"
+          ],
+          "dynamics": [
+            "compressed",
+            "controlled"
+          ]
+        }
+      },
+      "must": {
+        "voiced_ratio": [
+          0.12,
+          1.0
+        ]
+      }
+    },
+    {
+      "id": "cinematic",
+      "en": "cinematic orchestral",
+      "zh": "电影感管弦",
+      "words": {
+        "en": [
+          "sweeping strings",
+          "wide screen"
+        ],
+        "zh": [
+          "宏大的弦乐",
+          "宽银幕感"
+        ]
+      },
+      "when": {
+        "lra_db": [
+          12,
+          60
+        ],
+        "reverb_tail_ms": [
+          300,
+          4000
+        ],
+        "traits": {
+          "dynamics": [
+            "wide"
+          ],
+          "width": [
+            "wide",
+            "very_wide"
+          ]
+        }
+      },
+      "unless": {
+        "beat_clarity": [
+          4.5,
+          99
+        ]
+      }
+    },
+    {
+      "id": "rock",
+      "en": "live band rock",
+      "zh": "现场乐队摇滚",
+      "words": {
+        "en": [
+          "live drums",
+          "electric guitars"
+        ],
+        "zh": [
+          "真鼓",
+          "电吉他"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          100,
+          150
+        ],
+        "crest_db": [
+          10,
+          40
+        ],
+        "traits": {
+          "texture": [
+            "mixed",
+            "tonal"
+          ],
+          "width": [
+            "narrow",
+            "wide"
+          ]
+        }
+      },
+      "must": {
+        "beat_clarity": [
+          3.0,
+          99
+        ]
+      }
+    },
+    {
+      "id": "acoustic-folk",
+      "en": "acoustic folk",
+      "zh": "木吉他民谣",
+      "words": {
+        "en": [
+          "intimate",
+          "fingerpicked"
+        ],
+        "zh": [
+          "私密感",
+          "指弹"
+        ]
+      },
+      "when": {
+        "tempo_bpm": [
+          70,
+          120
+        ],
+        "traits": {
+          "brightness": [
+            "dark",
+            "neutral"
+          ],
+          "space": [
+            "dry",
+            "room"
+          ],
+          "width": [
+            "mono",
+            "narrow"
+          ]
+        }
+      }
+    },
+    {
+      "id": "chiptune",
+      "en": "chiptune / retro game",
+      "zh": "芯片音乐 / 复古游戏",
+      "words": {
+        "en": [
+          "8-bit",
+          "square waves"
+        ],
+        "zh": [
+          "方波音色",
+          "怀旧游戏机"
+        ]
+      },
+      "when": {
+        "zcr": [
+          0.12,
+          1.0
+        ],
+        "traits": {
+          "brightness": [
+            "bright",
+            "glass"
+          ],
+          "texture": [
+            "tonal",
+            "mixed"
+          ]
+        }
+      }
+    }
+  ],
+  "instrument_bank": [
+    {
+      "id": "sub-808",
+      "en": "808 sub bass",
+      "zh": "808 超低音贝斯",
+      "when": {
+        "band_ratios.sub_min": 0.06,
+        "crest_db": [
+          10,
+          40
+        ],
+        "traits": {
+          "low_end": [
+            "heavy",
+            "overwhelming"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kick",
+      "en": "punchy kick drum",
+      "zh": "有力的底鼓",
+      "when": {
+        "beat_clarity": [
+          3.0,
+          99
+        ],
+        "crest_db": [
+          10,
+          40
+        ],
+        "traits": {
+          "low_end": [
+            "balanced",
+            "heavy",
+            "overwhelming"
+          ],
+          "density": [
+            "sparse",
+            "medium"
+          ]
+        }
+      }
+    },
+    {
+      "id": "hats",
+      "en": "hi-hats / shaker",
+      "zh": "踩镲 / 沙锤",
+      "when": {
+        "band_ratios.air_min": 0.06,
+        "traits": {
+          "density": [
+            "medium",
+            "dense"
+          ]
+        }
+      }
+    },
+    {
+      "id": "piano-keys",
+      "en": "piano or electric keys",
+      "zh": "钢琴 / 电钢",
+      "when": {
+        "onset_rate": [
+          1.5,
+          9
+        ],
+        "centroid_hz": [
+          500,
+          3000
+        ],
+        "traits": {
+          "texture": [
+            "tonal",
+            "mixed"
+          ]
+        }
+      }
+    },
+    {
+      "id": "synth-lead",
+      "en": "synth lead",
+      "zh": "合成器主音",
+      "when": {
+        "band_ratios.highmid_min": 0.1,
+        "traits": {
+          "texture": [
+            "tonal",
+            "mixed"
+          ],
+          "brightness": [
+            "bright",
+            "glass",
+            "neutral"
+          ]
+        }
+      }
+    },
+    {
+      "id": "pad-strings",
+      "en": "sustained pads / strings",
+      "zh": "长音 pad / 弦乐铺底",
+      "when": {
+        "lra_db": [
+          8,
+          60
+        ],
+        "reverb_tail_ms": [
+          200,
+          4000
+        ],
+        "traits": {
+          "density": [
+            "sparse",
+            "medium"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eguitar",
+      "en": "electric guitar",
+      "zh": "电吉他",
+      "when": {
+        "band_ratios.mid_min": 0.14,
+        "crest_db": [
+          8,
+          40
+        ],
+        "traits": {
+          "texture": [
+            "mixed",
+            "tonal"
+          ]
+        }
+      }
+    },
+    {
+      "id": "choir",
+      "en": "choir / vocal pads",
+      "zh": "人声合唱 / 和声垫",
+      "when": {
+        "voiced_ratio": [
+          0.3,
+          1.0
+        ],
+        "traits": {
+          "texture": [
+            "tonal"
+          ],
+          "space": [
+            "hall",
+            "cavern",
+            "room"
+          ]
+        }
+      }
+    },
+    {
+      "id": "acoustic-drums",
+      "en": "acoustic drum kit",
+      "zh": "原声鼓组",
+      "when": {
+        "beat_clarity": [
+          3.0,
+          99
+        ],
+        "zcr": [
+          0.03,
+          1.0
+        ],
+        "traits": {
+          "texture": [
+            "mixed",
+            "noisy"
+          ]
+        }
+      }
+    }
+  ],
+  "negatives": {
+    "common": {
+      "en": [
+        "muddy low-mids",
+        "harsh brittle highs",
+        "clipping distortion"
+      ],
+      "zh": [
+        "低中频浑浊",
+        "高频刺耳发脆",
+        "削波失真"
+      ]
+    },
+    "if_instrumental": {
+      "en": [
+        "vocals",
+        "choir",
+        "vocal chops",
+        "lyrics",
+        "a cappella"
+      ],
+      "zh": [
+        "人声",
+        "合唱",
+        "人声切片",
+        "歌词",
+        "阿卡贝拉"
+      ]
+    },
+    "if_dark": {
+      "en": [
+        "shrill highs",
+        "sibilance",
+        "metallic sheen"
+      ],
+      "zh": [
+        "尖锐高频",
+        "齿音",
+        "金属光泽"
+      ]
+    },
+    "if_dry": {
+      "en": [
+        "big reverb",
+        "cathedral tail",
+        "wash"
+      ],
+      "zh": [
+        "大混响",
+        "教堂残响",
+        "过度湿声"
+      ]
+    },
+    "if_sparse": {
+      "en": [
+        "busy arpeggios",
+        "constant fills",
+        "wall of sound"
+      ],
+      "zh": [
+        "密集琶音",
+        "连续加花",
+        "音墙"
+      ]
+    },
+    "if_heavy_low": {
+      "en": [
+        "thin bass",
+        "no sub frequencies"
+      ],
+      "zh": [
+        "低频薄弱",
+        "缺超低频"
+      ]
+    },
+    "if_noisy": {
+      "en": [
+        "sterile sine tones",
+        "over-clean synth"
+      ],
+      "zh": [
+        "过于干净的正弦音色",
+        "毫无噪声成分"
+      ]
+    },
+    "if_compressed": {
+      "en": [
+        "orchestral dynamics",
+        "dramatic swells"
+      ],
+      "zh": [
+        "管弦式大动态",
+        "剧烈起伏"
+      ]
+    },
+    "sfx_common": {
+      "en": [
+        "music",
+        "melody",
+        "beat",
+        "rhythm"
+      ],
+      "zh": [
+        "音乐",
+        "旋律",
+        "节拍",
+        "节奏感"
+      ]
+    },
+    "sfx_dry": {
+      "en": [
+        "echo",
+        "reverb tail"
+      ],
+      "zh": [
+        "回声",
+        "混响尾巴"
+      ]
+    }
+  },
+  "mood_bank": [
+    {
+      "id": "warm-nostalgic",
+      "en": "warm, nostalgic",
+      "zh": "温暖怀旧",
+      "when": {
+        "traits": {
+          "brightness": [
+            "very_dark",
+            "dark"
+          ],
+          "tempo_band": [
+            "very_slow",
+            "slow",
+            "midtempo"
+          ],
+          "dynamics": [
+            "compressed",
+            "controlled"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "brightness": [
+            "bright",
+            "glass"
+          ]
+        }
+      }
+    },
+    {
+      "id": "bright-hopeful",
+      "en": "bright, hopeful",
+      "zh": "明亮有希望",
+      "when": {
+        "traits": {
+          "brightness": [
+            "bright",
+            "glass",
+            "neutral"
+          ],
+          "tempo_band": [
+            "midtempo",
+            "up"
+          ],
+          "dynamics": [
+            "controlled",
+            "wide"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "brightness": [
+            "very_dark",
+            "dark"
+          ]
+        }
+      }
+    },
+    {
+      "id": "lonely-expansive",
+      "en": "lonely, expansive",
+      "zh": "空旷孤独",
+      "when": {
+        "traits": {
+          "density": [
+            "sparse"
+          ],
+          "space": [
+            "hall",
+            "cavern"
+          ],
+          "tempo_band": [
+            "very_slow",
+            "slow",
+            "free"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "space": [
+            "dry"
+          ]
+        }
+      }
+    },
+    {
+      "id": "tense-suspenseful",
+      "en": "tense, suspenseful",
+      "zh": "紧张悬疑",
+      "when": {
+        "traits": {
+          "brightness": [
+            "very_dark",
+            "dark"
+          ],
+          "dynamics": [
+            "wide"
+          ],
+          "density": [
+            "sparse",
+            "medium"
+          ]
+        }
+      }
+    },
+    {
+      "id": "aggressive-driving",
+      "en": "aggressive, relentless",
+      "zh": "压迫感强、不停推进",
+      "when": {
+        "traits": {
+          "density": [
+            "dense"
+          ],
+          "tempo_band": [
+            "up",
+            "fast",
+            "frantic"
+          ],
+          "low_end": [
+            "heavy",
+            "overwhelming"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "tempo_band": [
+            "very_slow",
+            "free"
+          ]
+        }
+      }
+    },
+    {
+      "id": "solemn-ceremonial",
+      "en": "solemn, ceremonial",
+      "zh": "庄严肃穆",
+      "when": {
+        "traits": {
+          "space": [
+            "hall",
+            "cavern"
+          ],
+          "dynamics": [
+            "wide"
+          ],
+          "tempo_band": [
+            "very_slow",
+            "slow",
+            "midtempo"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "density": [
+            "dense"
+          ]
+        }
+      }
+    },
+    {
+      "id": "easy-breezy",
+      "en": "easy and breezy",
+      "zh": "轻松惬意",
+      "when": {
+        "traits": {
+          "brightness": [
+            "neutral",
+            "bright"
+          ],
+          "tempo_band": [
+            "midtempo",
+            "up"
+          ],
+          "density": [
+            "medium"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "brightness": [
+            "very_dark"
+          ]
+        }
+      }
+    },
+    {
+      "id": "melancholic",
+      "en": "melancholic, aching",
+      "zh": "忧郁感伤",
+      "when": {
+        "traits": {
+          "brightness": [
+            "very_dark",
+            "dark"
+          ],
+          "dynamics": [
+            "wide",
+            "controlled"
+          ]
+        },
+        "key_mode": "minor"
+      }
+    },
+    {
+      "id": "triumphant",
+      "en": "triumphant, uplifting",
+      "zh": "昂扬振奋",
+      "when": {
+        "traits": {
+          "dynamics": [
+            "wide"
+          ],
+          "energy": [
+            "loud",
+            "hot"
+          ],
+          "width": [
+            "wide",
+            "very_wide"
+          ]
+        },
+        "key_mode": "major"
+      },
+      "unless": {
+        "traits": {
+          "energy": [
+            "quiet"
+          ]
+        }
+      }
+    },
+    {
+      "id": "dreamy-hazy",
+      "en": "dreamy, hazy",
+      "zh": "朦胧梦幻",
+      "when": {
+        "traits": {
+          "texture": [
+            "mixed",
+            "noisy"
+          ],
+          "space": [
+            "room",
+            "hall",
+            "cavern"
+          ],
+          "brightness": [
+            "dark",
+            "neutral"
+          ]
+        }
+      },
+      "unless": {
+        "traits": {
+          "texture": [
+            "tonal"
+          ],
+          "dynamics": [
+            "compressed"
+          ]
+        }
+      }
+    }
+  ],
+  "material_bank": [
+    {
+      "id": "metal",
+      "en": "metal resonator",
+      "zh": "金属共振体",
+      "when": {
+        "flatness": [
+          0,
+          0.25
+        ],
+        "reverb_tail_ms": [
+          200,
+          5000
+        ],
+        "traits": {
+          "texture": [
+            "tonal",
+            "mixed"
+          ]
+        }
+      }
+    },
+    {
+      "id": "wood",
+      "en": "wood knock",
+      "zh": "木质敲击",
+      "when": {
+        "centroid_hz": [
+          200,
+          2500
+        ],
+        "flatness": [
+          0,
+          0.35
+        ],
+        "traits": {
+          "space": [
+            "dry",
+            "room"
+          ]
+        }
+      }
+    },
+    {
+      "id": "glass",
+      "en": "glass / ceramic",
+      "zh": "玻璃陶瓷",
+      "when": {
+        "centroid_hz": [
+          2500,
+          20000
+        ],
+        "flatness": [
+          0,
+          0.3
+        ],
+        "traits": {
+          "texture": [
+            "tonal",
+            "mixed"
+          ]
+        }
+      }
+    },
+    {
+      "id": "plastic-impact",
+      "en": "hard plastic impact",
+      "zh": "硬塑料撞击",
+      "when": {
+        "flatness": [
+          0.25,
+          1.0
+        ],
+        "duration_s": [
+          0,
+          0.6
+        ],
+        "traits": {
+          "texture": [
+            "mixed",
+            "noisy"
+          ]
+        }
+      }
+    },
+    {
+      "id": "water-air",
+      "en": "air / water movement",
+      "zh": "气流或水流",
+      "when": {
+        "flatness": [
+          0.4,
+          1.0
+        ],
+        "reverb_tail_ms": [
+          120,
+          5000
+        ],
+        "onset_rate": [
+          0,
+          3
+        ]
+      }
+    }
+  ],
+  "structures": [
+    {
+      "max_duration_s": 3.5,
+      "en": "single hit, self-contained",
+      "zh": "一次性击发声，自带完整包络"
+    },
+    {
+      "max_duration_s": 12,
+      "en": "short one-shot with clean tail",
+      "zh": "短素材，尾巴干净可截断"
+    },
+    {
+      "max_duration_s": 30,
+      "en": "short loop that repeats seamlessly",
+      "zh": "无缝循环的短循环"
+    },
+    {
+      "max_duration_s": 90,
+      "en": "intro, main section, clean outro",
+      "zh": "有引子、主体、干净收尾"
+    },
+    {
+      "max_duration_s": 1000000000.0,
+      "en": "full arrangement with intro, build, drop, outro",
+      "zh": "完整编排：引子—推进—主段—收尾"
+    }
+  ],
+  "targets": {
+    "suno": {
+      "limit_chars": 480,
+      "en": {
+        "joiner": ", ",
+        "style_hint": "Suno 的 style 字段：逗号分隔的短语，不要整句，不要歌词。"
+      },
+      "zh": {
+        "joiner": "，",
+        "style_hint": "Suno style 字段：短短语用逗号分隔，不要写成句子，不要包含歌词。"
+      }
+    },
+    "udio": {
+      "limit_chars": 500,
+      "en": {
+        "joiner": ", ",
+        "style_hint": "Udio tags：短语加乐器标签，风格词前置。"
+      },
+      "zh": {
+        "joiner": "，",
+        "style_hint": "Udio 标签：短语 + 乐器标签，风格词放前面。"
+      }
+    },
+    "stable-audio": {
+      "limit_chars": 900,
+      "en": {
+        "joiner": ", ",
+        "style_hint": "Stable Audio：一句话描述 + 参数，负向提示单独填 negative prompt。"
+      },
+      "zh": {
+        "joiner": "，",
+        "style_hint": "Stable Audio：整句描述 + 参数，负面词单独放进 negative prompt。"
+      }
+    },
+    "elevenlabs-sfx": {
+      "limit_chars": 800,
+      "en": {
+        "joiner": ", ",
+        "style_hint": "ElevenLabs SFX：单一事件的画面化描述，越长越容易被字面理解。"
+      },
+      "zh": {
+        "joiner": "，",
+        "style_hint": "ElevenLabs 音效：描述单一事件，写得越具体越容易被照做。"
+      }
+    }
+  }
+}

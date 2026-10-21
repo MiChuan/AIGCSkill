@@ -1,0 +1,8 @@
+{
+  "_comment": "音效 spec。音效的观点一半以上在「声源 + 用途」上，而这两样恰恰是频谱分析给不出来的，所以 source_action 与 usage 在这里几乎必填。",
+  "intent": "复刻这段 UI 反馈音",
+  "source_action": "金属拉环被按下再弹回",
+  "usage": "App 成功状态的提示音，界面里同时还有别的音，它必须短且干净",
+  "duration_target": 1,
+  "negative": ["不要有音乐感", "不要长尾混响"]
+}

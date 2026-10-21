@@ -1,0 +1,27 @@
+{
+  "subject": {
+    "what": "独行旅人剪影",
+    "detail": ["长风衣下摆被风吹起", "双肩背包", "仰头望向天顶"]
+  },
+  "action": "静立于沙丘脊线上",
+  "environment": {
+    "place": "黄昏时的沙漠",
+    "foreground": "近处沙丘表面有风蚀纹理",
+    "background": "无云天空，从地平线向上由橙转靛"
+  },
+  "light": {
+    "time": "黄金时刻最后十分钟"
+  },
+  "camera": {
+    "shot": "远景全身",
+    "lens": "35mm",
+    "angle": "平视略低机位"
+  },
+  "material": ["沙的细密颗粒"],
+  "style": {
+    "medium": "写实摄影",
+    "references": []
+  },
+  "negatives": ["文字", "水印", "logo", "多人", "帐篷", "车辙"],
+  "params": {}
+}

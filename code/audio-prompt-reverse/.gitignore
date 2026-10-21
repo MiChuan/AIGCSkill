@@ -1,0 +1,10 @@
+# 产物、本地素材与缓存，不入库
+out/
+assets/*.wav
+assets/*.mp3
+assets/*.m4a
+assets/*.flac
+assets/*.aiff
+assets/*.ogg
+__pycache__/
+*.pyc

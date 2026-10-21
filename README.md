@@ -3,7 +3,7 @@
 把「一句话需求」做成**可运行的 skill 包**：每个 skill 一个目录，一份 `SKILL.md` 说清什么时候用它、按什么顺序做、做到什么程度算过，配一套零依赖脚本把最容易出错的那几步变成命令。
 
 覆盖方向：文本、图片、视频、漫画、漫剧、游戏、3D 世界、项目管理、代码生成、法律文书。
-当前已落地 **9 个**：文本 / 工程类 2 个，图片类 7 个。
+当前已落地 **12 个**：文本 / 工程类 2 个，图片类 7 个，逆向工具类 3 个。
 
 <p>
 <img alt="license" src="https://img.shields.io/badge/license-MIT-blue">
@@ -17,7 +17,7 @@
 
 ```
 AIGCSkill/
-├── code/    # 代码生成 / 工程自动化类（规划中，暂空）
+├── code/    # 逆向工具类：看图 / 听音频 / 读文本 → 反推出生成它们的提示词
 ├── text/    # 文本与工程类：cantonese-coach、code-discipline
 ├── image/   # 图片生成类：hy-image35-* 七个流水线
 ├── LICENSE  # MIT
@@ -55,6 +55,20 @@ AIGCSkill/
 
 按「改动面积」排：`hair-code` 最小（只动头发）→ `lowkey-portrait` → `kr-school-id` → `cinematic` → `nationalgeo`（不动内容）→ `ink-print` → `photo-seal`（砍到只剩骨架）。**先确定你要哪一种，再动手**，七个混着用会互相打脸。
 
+### code/ — 逆向工具类
+
+三者做的是同一件事的三种输入：**给成品，反推出能复刻它的提示词**。
+
+| Skill | 从什么反推 | 三步流水 | 产物 | 依赖 |
+| --- | --- | --- | --- | --- |
+| [image-prompt-reverse](code/image-prompt-reverse/SKILL.md) | 一张图 | 量测（光位 / 光比 / 色板 hex / 景深 / 噪声 / 暗角 / 主体候选 / 水印嫌疑）→ 结构化 spec → 四档装配（short / natural / mj / sd）→ 重出图校验 | `probe.json/md/png`、四档提示词、verify 评分报告 | Pillow |
+| [audio-prompt-reverse](code/audio-prompt-reverse/SKILL.md) | 一段音频 | 测速 / 判调 / 明暗 / 纹理 / 密度 / 动态 / 空间 / 低频占比 → 八槽追溯表 → 四个目标平台成品 → 往返复述打分（< 80 不许交付） | `features.json`、追溯表式 `prompt.md`、`targets/{suno,udio,stable-audio,elevenlabs-sfx}`、复述得分报告 | 纯标准库（非 wav 需 ffmpeg） |
+| [text-style-to-prompt](code/text-style-to-prompt/SKILL.md) | 一段文本 | 七轴指纹（句长 / 段构 / 标点 / 人称 / 用词 / 引语 / 版面）→ 逐条带证据 + 判据的风格 spec → 三档提示词（short / standard / anchored）→ 换主题复刻后比指纹 | `ref.json`、三档提示词、`cmp.json` + pass / fail | 纯标准库 |
+
+三者共用同一条纪律：**先量化，再翻译，最后必须有一份校验分数**。
+「看图说话」式的逆向最容易被「空泛形容词」蒙过去——所以 `image-prompt-reverse` 把「好看 / 电影感 / 高级感」这类词直接报 W201，`text-style-to-prompt` 遇到「文笔细腻 / 富有张力」且不带数字或对照时直接退出码 2。
+拿不出分数的逆向等于没做：图片的门槛是重出图 ≥ 80，音频是复述得分 ≥ 80，文本是总分 ≥ 75 且每轴 ≥ 55。
+
 ---
 
 ## 快速开始
@@ -66,6 +80,9 @@ AIGCSkill/
 cp -r text/cantonese-coach     ~/.workbuddy/skills/
 cp -r text/code-discipline     ~/.workbuddy/skills/
 cp -r image/hy-image35-cinematic ~/.workbuddy/skills/
+cp -r code/image-prompt-reverse  ~/.workbuddy/skills/
+cp -r code/audio-prompt-reverse  ~/.workbuddy/skills/
+cp -r code/text-style-to-prompt  ~/.workbuddy/skills/
 # ……其余同理
 ```
 
@@ -74,6 +91,7 @@ cp -r image/hy-image35-cinematic ~/.workbuddy/skills/
 - **粤语**：「学粤语」「帮我定个 4 周计划」「练一段点餐对话」「粤拼怎么读」
 - **工程**：「先别改，看看这个项目怎么实现的」「用最小改动做」「先写个测试复现」「审查这次提交」「不要 Markdown，做成 HTML」
 - **图片**：「用这张照片生成一个场景」「做一张伦勃朗光人像」「做成印章」「调成国家地理的色调」「做成水墨留白的平面设计图」「韩系学院风证件照」「我适合什么发型」
+- **逆向**：「反推这张图的提示词」「这张图怎么生成的」「看图写 prompt」「复刻这张图」「这段音乐怎么写 prompt」「音效提示词」「照着这风格写」「提炼写作风格」
 
 ### 方式二：当手册 + 命令行工具用
 
@@ -98,9 +116,40 @@ python scripts/extract_palette.py assets/demo-ref.png --outdir out/pal --k 6 --t
 python scripts/build_print_prompt.py --spec specs/ink-print-lake.json --outdir out/demo
 python scripts/printcheck.py out/demo/raw/x.png --layout out/demo/meta.json --annotate out/demo/check.png
 python scripts/selftest.py                                         # 37 项断言，不需要外部图
+
+# 逆向：一张图 → 提示词
+cd ../../code/image-prompt-reverse
+python scripts/make_demo.py --out assets/demo-ref.png --seed 7     # 合成演示图
+python scripts/probe.py assets/demo-ref.png --outdir out/probe     # 量测
+python scripts/build_prompt.py --spec specs/dune-silhouette.json \
+    --outdir out/dune --probe out/probe/probe.json                 # 装配四档
+python scripts/verify.py --ref assets/demo-ref.png \
+    --gen out/dune/raw/gen.png --outdir out/dune/verify            # 重出校验
+python tests/test_scripts.py                                       # 50 项断言
+
+# 逆向：一段音频 → 提示词
+cd ../../code/audio-prompt-reverse
+python scripts/selftest.py --emit out/probes                       # 现场合成探针，94 项断言
+python scripts/analyze_audio.py out/probes/kick-120.wav --out out/ref
+python scripts/build_prompt.py out/ref/features.json \
+    --spec specs/demo-music.json --outdir out/prompt               # 追溯表 + 四目标成品
+python scripts/compare_features.py out/ref/features.json \
+    out/ref/features.json --gate 80                                # 复述得分
+python tests/test_scripts.py                                       # 30 项断言
+
+# 逆向：一段文本 → 风格提示词
+cd ../text-style-to-prompt
+python scripts/style_probe.py --text examples/sample-input.md --out out/ref.json --summary
+python scripts/build_prompt.py --spec specs/demo-cold-tech.json --check          # 空话直接退出 2
+python scripts/build_prompt.py --spec specs/demo-cold-tech.json --outdir out/demo
+python scripts/style_probe.py --text examples/sample-repro.md --out out/cand.json
+python scripts/style_compare.py --ref out/ref.json --cand out/cand.json --min 75 --axis-min 55
+python tests/test_scripts.py                                       # 25 组用例 / 55 项断言
 ```
 
-每个目录的 `README` 之外，详细命令、参数、验收标准都在该 skill 的 `SKILL.md` 里。图片类另外三个带自测的：`kr-school-id` 39 项、`hair-code` 296 项、`ink-print` 37 项，全部不依赖外部素材，改完脚本先跑它。
+每个目录的 `README` 之外，详细命令、参数、验收标准都在该 skill 的 `SKILL.md` 里。另有自测的：`kr-school-id` 39 项、`hair-code` 296 项、`ink-print` 37 项、`image-prompt-reverse` 50 项、`audio-prompt-reverse` 30 项、`text-style-to-prompt` 25 组用例，全部不依赖外部素材，改完脚本先跑它。
+
+> `image-prompt-reverse` 需要 Pillow，其余全是纯标准库。
 
 ---
 
@@ -137,8 +186,10 @@ python scripts/selftest.py                                         # 37 项断�
 
 ## 路线图
 
-已落地：文本教练、工程纪律、图片七条流水线。
-待补：视频、漫画 / 漫剧、游戏、3D 世界、项目管理、法律文书（`code/` 预留给代码生成与工程自动化）。
+已落地：文本教练、工程纪律、图片七条流水线，以及图 / 音频 / 文本三条逆向链路。
+待补：视频、漫画 / 漫剧、游戏、3D 世界、项目管理、法律文书。
+
+逆向这条线可以照 `code/` 的三个模板往下铺——视频（看片 → 分镜提示词）、3D（模型 → 建模参数）、游戏（关卡 → 生成规则）都是同一个骨架：**量化 → 翻译 → 校验打分**。
 
 ## License
 
