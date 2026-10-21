@@ -6,7 +6,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [image-prompt-reverse](image-prompt-reverse/SKILL.md) | 一张图 | 光位 / 光比 / 色板 hex / 景深 / 噪声 / 暗角 / 主体候选位置 / 水印嫌疑 | `probe.json/md/png`、四档提示词（short / natural / mj / sd）、verify 评分报告 | Pillow | 50 项 |
 | [audio-prompt-reverse](audio-prompt-reverse/SKILL.md) | 一段音频 | 速度 / 调性 / 明暗 / 纹理 / 密度 / 动态 / 空间 / 低频占比 | `features.json`、八槽追溯表式 `prompt.md`、`targets/{suno,udio,stable-audio,elevenlabs-sfx}`、复述得分报告 | 纯标准库（非 wav 走 ffmpeg） | 94 项（selftest）+ 30 项（CLI 回归） |
-| [text-style-to-prompt](text-style-to-prompt/SKILL.md) | 一段文本 | 七轴指纹：句长 / 段构 / 标点 / 人称 / 用词 / 引语 / 版面 | `ref.json`、三档提示词（short / standard / anchored）、`cmp.json` + pass / fail | 纯标准库 | 25 组用例 / 55 项断言 |
+| [text-style-to-prompt](text-style-to-prompt/SKILL.md) | 一段文本 | 七轴指纹：句长 / 段构 / 标点 / 人称 / 用词 / 引语 / 版面 | `ref.json`、三档提示词（short / standard / anchored）、`cmp.json` + pass / fail | 纯标准库 | 30 组用例 / 55 项断言 |
 
 ## 三者为什么放在一起
 
@@ -67,7 +67,7 @@ python scripts/build_prompt.py --spec specs/demo-cold-tech.json --check         
 python scripts/build_prompt.py --spec specs/demo-cold-tech.json --outdir out/demo
 python scripts/style_probe.py --text examples/sample-repro.md --out out/cand.json
 python scripts/style_compare.py --ref out/ref.json --cand out/cand.json --min 75 --axis-min 55
-python tests/test_scripts.py                                       # 25 组用例
+python tests/test_scripts.py                                       # 30 组用例
 ```
 
 退出码约定（三个 skill 一致）：0 正常 / 1 未过线 / 2 输入有问题；`analyze_audio.py` 额外用 3 表示近乎静音。

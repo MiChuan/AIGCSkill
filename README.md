@@ -144,10 +144,10 @@ python scripts/build_prompt.py --spec specs/demo-cold-tech.json --check         
 python scripts/build_prompt.py --spec specs/demo-cold-tech.json --outdir out/demo
 python scripts/style_probe.py --text examples/sample-repro.md --out out/cand.json
 python scripts/style_compare.py --ref out/ref.json --cand out/cand.json --min 75 --axis-min 55
-python tests/test_scripts.py                                       # 25 组用例 / 55 项断言
+python tests/test_scripts.py                                       # 30 组用例 / 55 项断言
 ```
 
-每个目录的 `README` 之外，详细命令、参数、验收标准都在该 skill 的 `SKILL.md` 里。另有自测的：`kr-school-id` 39 项、`hair-code` 296 项、`ink-print` 37 项、`image-prompt-reverse` 50 项、`audio-prompt-reverse` 30 项、`text-style-to-prompt` 25 组用例，全部不依赖外部素材，改完脚本先跑它。
+每个目录的 `README` 之外，详细命令、参数、验收标准都在该 skill 的 `SKILL.md` 里。另有自测的：`kr-school-id` 39 项、`hair-code` 296 项、`ink-print` 37 项、`image-prompt-reverse` 50 项、`audio-prompt-reverse` 30 项、`text-style-to-prompt` 30 组用例，全部不依赖外部素材，改完脚本先跑它。
 
 > `image-prompt-reverse` 需要 Pillow，其余全是纯标准库。
 
